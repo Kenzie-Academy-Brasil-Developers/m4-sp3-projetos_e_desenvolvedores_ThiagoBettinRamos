@@ -1,19 +1,33 @@
 import { QueryResult } from "pg";
 
-interface IProjectRequest {
-    name: string,
-    description: string,
-    estimatedTime: string,
-    repository: string,
-    startDate: Date,
-    endDate: Date,
-    developerId: number | null
-};
+interface ProjectRequest {
+  id: number,
+  name: string,
+  description: string,
+  estimatedTime: Date,
+  repository: string,
+  startDate: Date,
+  endDate: Date,
+  developerId: number
+}
+interface Project extends ProjectRequest {
+  id: number
+}
+interface Technology {
+  id: number,
+  name: string
+}
 
-interface IProject extends IProjectRequest{
-    id: number,
-};
+interface ProjectTechnology {
+  id: number,
+  addedIn: string,
+  projectId: number,
+  technologyId: number
+}
 
-type ProjectResult = QueryResult<IProject>;
+export type ProjectRequiredKeys = | "name" | "description" | "estimatedTime" | "repository" | "startDate" | "developerId"
 
-export { IProjectRequest, ProjectResult }
+type ProjRequestedKeys = keyof ProjectRequest;
+type ProjectResult = QueryResult<Project>;
+
+export { ProjectRequest, ProjectTechnology, Technology, ProjRequestedKeys, Project, ProjectResult }

@@ -17,7 +17,7 @@ const confirmId = async ( request: Request, response: Response, next: NextFuncti
         text: queryID,
         values: [DeveloperID]
     }
-    const QueryResult: QueryResult = await client.query(QueryConfig);
+    const QueryResult: QueryResult = await client.query(QueryConfig)
     
     if (QueryResult.rows[0] === 0) {
         return response.status(404).json({
